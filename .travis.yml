@@ -1,0 +1,13 @@
+language: java
+
+jdk:
+  - openjdk8
+
+jobs:
+  include:
+    - stage: test
+      name: "junit gradle plugin"
+      script: "mvn test verify -B"
+#    - stage: deploy
+#      name: "deploy maven snapshot"
+#      script: "./snapshot_deploy.sh"
