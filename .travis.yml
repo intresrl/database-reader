@@ -14,3 +14,7 @@ env:
 before_install:
 - openssl aes-256-cbc -K $encrypted_b03e57a992da_key -iv $encrypted_b03e57a992da_iv
   -in intre-oss-private.asc.enc -out intre-oss-private.asc -d
+
+before_deploy:
+  - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
+  - export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep -v '\[')
