@@ -18,6 +18,69 @@
         <kotlin.version>1.3.41</kotlin.version>
     </properties>
 
+    <licenses>
+        <license>
+            <name>GPL-3.0</name>
+            <url>https://spdx.org/licenses/GPL-3.0#licenseText</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/intresrl/database-reader.git</connection>
+        <url>https://github.com/intresrl/database-reader</url>
+    </scm>
+
+    <distributionManagement>
+        <site>
+            <id>github</id>
+            <url>https://github.com/intresrl/database-reader</url>
+        </site>
+
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+
+    </distributionManagement>
+
+    <developers>
+        <developer>
+            <name>Damiano Salvi</name>
+            <email>salvi@intre.it</email>
+            <organizationUrl>http://www.intre.it</organizationUrl>
+        </developer>
+        <developer>
+            <name>Marco Ranica</name>
+            <email>ranica@intre.it</email>
+            <organizationUrl>http://www.intre.it</organizationUrl>
+        </developer>
+        <developer>
+            <name>Ferdinando Santacroce</name>
+            <email>santacroce@intre.it</email>
+            <organizationUrl>http://www.intre.it</organizationUrl>
+        </developer>
+        <developer>
+            <name>Luca Cruciani</name>
+            <email>cruciani@intre.it</email>
+            <organizationUrl>http://www.intre.it</organizationUrl>
+        </developer>
+        <developer>
+            <name>Alessandro D'Amico</name>
+            <email>damico@intre.it</email>
+            <organizationUrl>http://www.intre.it</organizationUrl>
+        </developer>
+        <developer>
+            <name>Alex Mufatti</name>
+            <email>mufatti@intre.it</email>
+            <organizationUrl>http://www.intre.it</organizationUrl>
+        </developer>
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
