@@ -36,3 +36,6 @@ deploy:
   on:
     repo: intresrl/database-reader
   name: $project_version
+
+notifications:
+  email: false
