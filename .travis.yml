@@ -31,7 +31,7 @@ deploy:
   provider: releases
   api_key:
     secure: QvYOeVzY0uPxFYpp+uMaHsKD6Pvb/mEC1s2E12y4ZSLsN84jVlLZ92FWnZzlhtmzNVahQu6GGlEMcINMPySWQmpIBMal8BebYdRF2yosYO/XXy/vRbdMNkW1/6EgDPWn2hHw6VWnU8f9i9YbjfIhqGeSVGmSYHciSrEvJ4JB9XS3AIl92mt6PHrErV2dDhT0eKSRb6NUiCd9TLu6isZPAUiFjCVepOtzJK1S/WngcPI49jL4pV4kRnDcM37Ed1hE0EMQbhPlygJ724PLXtt96lxt3pZt+dS86xQtmsa3Q0Miz6dA2b853Wp99U2sQffHt2FQ+cHM0ECAeNRqxnpkJpIYcrY/wyaayHHtQkRy571D/jegBidfovM/VLD5lbYPaNkkqRXiFhfbpI/Cu5i5RC8+uPTXMwEiMioLB1oGotjy5H2PSN9UR3yIBqN5BNEfmkNwhQ3o3R0xb7SK031/4N5b2lPOdIT6nCzBUx+MvIQ36FfT5QxwsW54sVY2k2MQM1wqo41YZviUkNkTFYjes2z+Dm1lMd7LaMhS9LZoKVZ2kiYD0O1cRkWbHIqEV7/1kY7r0ma1HRMJj1dpCt+dLezpb/qaUgCy80XZRbqFid+PDDW5duIp6kHWvGFUa2cNl3+eGde0bnf94UMClVXyQVrIEnHTrmWf6e+r7eX+UUw=
-  file: target/database-reader/database-reader.jar
+  file: target/database-reader.jar
   skip_cleanup: true
   on:
     repo: intresrl/database-reader
