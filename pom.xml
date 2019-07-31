@@ -10,7 +10,7 @@
         <version>9</version>
     </parent>
     
-    <groupId>it.intre.guild</groupId>
+    <groupId>it.intre</groupId>
     <artifactId>database-reader</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
