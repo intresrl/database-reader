@@ -14,7 +14,7 @@ before_install:
 - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
 - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 - openssl aes-256-cbc -K $encrypted_b03e57a992da_key -iv $encrypted_b03e57a992da_iv
-  -in intre-oss-private.asc.enc -out intre-oss-private.asc -d
+  -in signingkey.asc.enc -out signingkey.asc -d
 
 install:
   mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
