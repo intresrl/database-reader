@@ -12,7 +12,7 @@
     
     <groupId>it.intre</groupId>
     <artifactId>database-reader</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
 
     <properties>
         <kotlin.version>1.3.41</kotlin.version>

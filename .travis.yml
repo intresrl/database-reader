@@ -1,9 +1,20 @@
 language: java
 
+jdk:
+- openjdk8
+
+env:
+  global:
+  - secure: aV4AX4ZMvYbxKIvOAtq9yqvPTzH7gOjnnFfMJlXLonK0s3V+iD2z27KLel38i4s0bqO0/zqQ9HRedUK/MEhkLeS1scZKxDnVYa1ZXdlUKcigGPv+0NnRZl8367gooU22HcbDZQwbw2p2J+zoJNlFz7q9H2xNZGzgSvbptIKi2B+v9gTBQdp7c1SqcFPzjXZqqPL98XxPVLK1ssGXUVuU1uZaDyxpC63+8EkSgBTMulQJAVaz42en3qNReImeDHxCeGYNs2tnGjupbDEkXJ5cGYxVirQ+nBcxdNJyjt5SAAWNdIiFTwn8wxCFQtmSjY+i/RZyKRpwGYsfqWYg7XnkJ1cReeyPKMGkDq8ATg2kzh0PyJ7n8faIZHe6IPHOJtzdDC69OfInAcxEVoeat90fqJLnp1Ttd+XRBcfMF0gsBVvG7ea3wEbpYSpZShxe3qQofWe28lpRekvMbYcNbLvKdLHhiuCagSkcjhSl08Cnprb4H73EnE1LbDfIDhbJUJLO+XGcd8OvKOg3Jz4hDjAENlCPRI+Sh1XUUIlLk9ERMt/diWpq2EG4Dj3JQex6YrGDH/XHyQfbxA1nhtNWf4XtTJ9bs4kHQNBwaVTPhVB8pLMyq6RR36Ze34ahi8Iw7e3ojtPn13ZD2srTInokxJAHqgJO3KVDH4LVuzY9mBxd6TQ=
+  - secure: FbwU/bKJu1yHA9glvIfG3ZLCqOnDa7F/Wu5HWVIBkY9Tbo/FcxchhCmz/xkJC73dMmxG/33PXKgcmWE56XOpUgcX4x/3/cAT6FAFkELCf2xlVPupSxpZgF3wLG+YFP7WOmOBTS7teC+HHXK/h3lFD8bdqb4xViQptLuH1XBvPqL7k0GwzkOztpIs3ZaSOphEdQixRF0KfkSIBFuTjNXGKep8XdVytuetqY4AJUZe7DWrxZytVHq5FryBIWMfXoZe3J9qDgHajDdcbTLFUSbuXy1mlpzTAcanVoNb1/IpggtOHktyN4/aoZwugnQlqvc8afd3oljpv3jZhRAisGhEhyRWo9JI7LEny348nvvMWpzUxcKOEZdFvww251sOekC46oYeEstWOFajTDdpDq3T/WJJvPJ8LkDoDPeioW8IGYdYO7Na1K/FH/w/GCbWhtHqJe2o9xKoqZrvnAABXKLi/nsman1Rxduz6AWZxgyRn+6CkJfGJSqOoyC40QV3eEPeUXuwEiKWlGXu6kmfJSACYwfcPH9fE2EPzynRuhRoyd2CQTtXa5PS12zkTsKi2DhzYWYFOB79gbxW0AZbocx2DtVvICmFWSWya5s7q275S12NqDkGnxWJMV6ECrhNP0jvGcAtbOh0gCrkqzx3BUv3BGe9kTeWeS0/4C6kcmjP1HI=
+  - secure: lmC5DJ/Ka3mWMahgwGHQTcEE7srWk5MKkHwbn4FAq1erlNFKoMYco82L3DpATjf7CSA40ayQFboALIZsiQyp23S7L0vetLgBeDCIok6OyMSqBhpb+X/8W+sqFmnf8Z1ARImR46VSe+aiqwtS4e+qGtPyV3A/UcJr509zqDkEI4o9BZBYuMpH3AgzboKxlNUO2GnyULuW46BisSLIDfeEYIGuxgBAf9MC52A/tPg1x1/+nUl8SeBKyWRKt83b48U+Deb32uSRrsqlhIZyzcOUaonF7mh8BsqDI2+Qkt515q+g0zI1/ebjz712whFS46CP3loEETaXJAqsli/Qrlx6g75g9ZpxElmdL3XiaLv9cxAzcUoJRg+N1jRdEdy41h5MH9bMcovbK2pG3DH2Q5FIAO4vFTMOPeloJreLfA/5spy94sdoida/ETuf5uzzEVuheI9E4YE6v1y8P2AOgYwAofjWT9tWy21LQd4Jwc99JWYkAo6e1r+B0n2DquzViqIDA3hSf2GgQ2JS8YLHAn7MSnttPPkJfAcStxxlbCYRPHNsHPkC9HOCe5WjcXYYKGg3JnEuWuAE0izFfbgTo1/8S5L+6cSnWXaB7/HKSAvRNFED3mGjLP6YI+wwC34dzoMhS4ZcM9tfGstWX0PX97EQ5oBiY7AKOAhA04Xu19CH5N8=
+
 ## export GPG details
 before_install:
 - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
 - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+- openssl aes-256-cbc -K $encrypted_b03e57a992da_key -iv $encrypted_b03e57a992da_iv
+  -in intre-oss-private.asc.enc -out intre-oss-private.asc -d
 
 install:
   mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
@@ -16,7 +27,6 @@ before_deploy:
 - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
 - export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep -v '\[')
 
-## Create release in GitHub
 deploy:
   provider: releases
   api_key:
