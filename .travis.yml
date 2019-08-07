@@ -1,37 +1,39 @@
 language: java
-
 jdk:
 - openjdk8
-
-## export GPG details
 before_install:
-- openssl aes-256-cbc -K $encrypted_b03e57a992da_key -iv $encrypted_b03e57a992da_iv -in signingkey.asc.enc -out signingkey.asc -d
-
-install:
-  mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
-
+- openssl aes-256-cbc -K $encrypted_b03e57a992da_key -iv $encrypted_b03e57a992da_iv
+  -in signingkey.asc.enc -out signingkey.asc -d
+install: mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true
+  -B -V
 after_success:
-  - gpg --batch --yes --passphrase=$PASSPHRASE --keyring=$TRAVIS_BUILD_DIR/pubring.gpg --no-default-keyring --import signingkey.asc
-  - gpg --batch --yes --passphrase=$PASSPHRASE --allow-secret-key-import --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring --import signingkey.asc
-  - echo XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  - gpg --list-secret-keys --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring
-  - echo XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  - mvn clean deploy --settings .maven.xml -DskipTests=true -Dgpg.publicKeyring=$TRAVIS_BUILD_DIR/pubring.gpg -Dgpg.secretKeyring=$TRAVIS_BUILD_DIR/secring.gpg -B -U -Prelease
-
+- gpg --batch --yes --passphrase=$PASSPHRASE --keyring=$TRAVIS_BUILD_DIR/pubring.gpg
+  --no-default-keyring --import signingkey.asc
+- gpg --batch --yes --passphrase=$PASSPHRASE --allow-secret-key-import --keyring=$TRAVIS_BUILD_DIR/secring.gpg
+  --no-default-keyring --import signingkey.asc
+- echo XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+- gpg --list-secret-keys --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring
+- echo XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+- mvn clean deploy --settings .maven.xml -DskipTests=true -Dgpg.publicKeyring=$TRAVIS_BUILD_DIR/pubring.gpg
+  -Dgpg.secretKeyring=$TRAVIS_BUILD_DIR/secring.gpg -B -U -Prelease
 before_deploy:
 - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
-- export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep -v '\[')
-
+- export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep
+  -v '\[')
 deploy:
   provider: releases
   api_key:
     secure: QvYOeVzY0uPxFYpp+uMaHsKD6Pvb/mEC1s2E12y4ZSLsN84jVlLZ92FWnZzlhtmzNVahQu6GGlEMcINMPySWQmpIBMal8BebYdRF2yosYO/XXy/vRbdMNkW1/6EgDPWn2hHw6VWnU8f9i9YbjfIhqGeSVGmSYHciSrEvJ4JB9XS3AIl92mt6PHrErV2dDhT0eKSRb6NUiCd9TLu6isZPAUiFjCVepOtzJK1S/WngcPI49jL4pV4kRnDcM37Ed1hE0EMQbhPlygJ724PLXtt96lxt3pZt+dS86xQtmsa3Q0Miz6dA2b853Wp99U2sQffHt2FQ+cHM0ECAeNRqxnpkJpIYcrY/wyaayHHtQkRy571D/jegBidfovM/VLD5lbYPaNkkqRXiFhfbpI/Cu5i5RC8+uPTXMwEiMioLB1oGotjy5H2PSN9UR3yIBqN5BNEfmkNwhQ3o3R0xb7SK031/4N5b2lPOdIT6nCzBUx+MvIQ36FfT5QxwsW54sVY2k2MQM1wqo41YZviUkNkTFYjes2z+Dm1lMd7LaMhS9LZoKVZ2kiYD0O1cRkWbHIqEV7/1kY7r0ma1HRMJj1dpCt+dLezpb/qaUgCy80XZRbqFid+PDDW5duIp6kHWvGFUa2cNl3+eGde0bnf94UMClVXyQVrIEnHTrmWf6e+r7eX+UUw=
   file:
-      - target/database-reader-$project_version.jar
+  - target/database-reader-$project_version.jar
   skip_cleanup: true
   on:
     repo: intresrl/database-reader
-  name: $project_version
-
+  name: "$project_version"
 notifications:
   email: false
+env:
+  global:
+  - secure: UzfDq/y3Jbu4vmm5nxYkcUkQZNXtgc4Q+2Q05iiM2D3D1aX5r0gOOfC/22bPbvDRdUVtV24kVoN7lFHhrQnhXcC/BPLotQCnfvaDLU5L5mEs0r3iUHpzkY0W/ho4MDb6mmMtpk9PuYcgEJX6MRCQLgj9RUJZDsnhop12SC+ZCNWD19zyQiEuc/cVkn0hJ0KO2YEdmmCWeWzKlPJCHqWsoBgYVddnF59j+UxwonTcjfUxkEpmdr7PhzKSuOtSvqDHU/9vLGZcNAdw8z9WjsSapZCLXKKQyj+aB3oWh/yXCRI+Zvmxush2ka08xGWDo7XOEqEOiiIOySfvWu79CWuwi8FWXC1XAuWR9yuUoMqY3WNTdkfztYj/pRmDc4J5yRYBwUmkl6Uaw7w4+BfLSFWHAn++QP3mWB0aHW6I1q2+DMXhxv7xDbV4TLTwFzL0eLjXRm+oppi2lasy8dBRGoWT3GQmOjLFEnLZ8LeJUsWjyg/g+c64wgaPN8g1Iy52yIHTj0SwJ90qOym3r3EeDuhagAzFZfnj2w3jncmh8lV0rqwbDmxTsztut87ojY6oUtX//8YwKCSkuLNoLyiZolp13pGiuPYxGJlHfGT7M7mThw6W8ivGesRL7JEp0uo3MEYKlOnxOyKvvD0OLwJRRKq/64uSWdeDAJSZcc+G2ny2+l0=
+  - secure: W8Sb0OjvkeFRAxPdOlqESApZoj+RL29tPcM9ssgeEQ57RsFZL3k0EdNKtcWOL3Aa6Dv6kMGoxfLeceVx6ZM5dnhWE2QP0tHbqyM9DF1fd9++45X0U/LL75FQDUpP8J0vvJvHbQjWeKZC/QtEpkVC/6vNbvyn8OfxnoDw/Rvuq/9CKKvB3ZwtIaitXmBD3EggkyXSOyrdBt7Rr6LKsBkelNp0dxxlnYw8pzrO7lEsATnJRU88StmKXz56iYfTkf2xb1nKvKwd7VKf62Eu+LuxtNCodaSmm7aLjWQi6B1AUJvtMkDAArrN7o5sCJiPjJKQ35AUv9yz9qfXZU0HIii+1D0LgxS2XtporX2/iOcq60zmQvcFMiIrifXV8tSjbAbuYKoMnt2Gi+8qFIMSFW0t6uo25dKdl4Yngtol0KpF2PewejMHHFJK7t8W50Rf8ut27Ve35+efEy0fjvhp0e09x8dFdfwTMVyjuOkH/0yI1yBvrwjdkpCkxtizilVNAj08/65T7gEEHlDruN5klDCzZhQayGbchIQfYdWpkypM2hs4wi2ZiF09kqq28ZOIwWCbEmjdqXBKM3730FFYl6eAeCuJhByK/1waJ8UIQLL+3iHJuzqsOQuESSJlgev4TkCWhL5ijC3vtfVyXVVSBd/rQZCQkkCL55y/4XegXcyI7Sc=
+  - secure: kymGJfrpvafrVrGC8eQ5I1CH6GTBcb0GAk5z2imbELKeEFgAZ0WfjrKtTiTTBKvRW3KOuiJpokqQ57EXSbz57x0qS4DsHx2pS/Z3vcKYscQ1ytIbnUDmfDxgsKW2TPD2c6LHJFiOGAZ2OP9vm2BtHdy6vtN20oQ44QYwQanQ2g2BHeRuDU4gB4XOq8iEdOVcxIq9luiz/DfhiLEZcgqi2Uumbhn46FuExHVCyoxYGVsf8iUpotzEsGzRuXN8PEQ2CJEaREKPoclYPb8js3DfVNbt40Kg6FfHrKRSO6SdeWq6HZzabZHNO7zVOiUFj8K01/mo16CILH2iHLpZEygyXUF9XVdYXMouN9PsNaE+sf/fz/NOdhJSFquBL+TFCXieGfTsLi7SmXImz2T6n5xB1wyNPuFCcjODVsmo5WUOyvw+3xWU40Zd3GCN3aUkfRposVzu6adHBtUOBc2JthAxquYKXlGxIPdpyJ0xP+tp2z1cHrFQBFIhz+bdNDCuUsUaofknQyppk3MCSHIUBumqnYOOriPHG3tD6nbvUPrImi41QqZjUnqwF5bZ1z3hn6JLIog8UNj4fRvGom7efMN17PdAikoLzzhJHIXISG5JLpZcY03iij7ECZn42iFCRlQ2F1O6ywJI+mR/7AgpwRejy6RukwyP0P5SiWuLp3vVDrg=
