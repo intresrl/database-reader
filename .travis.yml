@@ -38,3 +38,8 @@ deploy:
 
 notifications:
   email: false
+
+branches:
+  only:
+    - master
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
