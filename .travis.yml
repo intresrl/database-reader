@@ -17,9 +17,11 @@ before_install:
 install:
   mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
 
-## Build and release to maven central
-script:
-  mvn clean deploy --settings .maven.xml -DskipTests=true -B -U -Prelease
+after_success:
+  - gpg2 --keyring=$TRAVIS_BUILD_DIR/pubring.gpg --no-default-keyring --import signingkey.asc
+  - gpg2 --allow-secret-key-import --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring
+    --import signingkey.asc
+  - mvn clean deploy --settings .maven.xml -DskipTests=true -B -U -Prelease -Dgpg.publicKeyring=$TRAVIS_BUILD_DIR/pubring.gpg -Dgpg.secretKeyring=$TRAVIS_BUILD_DIR/secring.gpg
 
 before_deploy:
 - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
