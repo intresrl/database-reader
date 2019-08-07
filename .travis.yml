@@ -17,10 +17,10 @@ install:
   mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
 
 after_success:
-  - gpg2 --batch --yes --passphrase=$PASSPHRASE --keyring=$TRAVIS_BUILD_DIR/pubring.gpg --no-default-keyring --import signingkey.asc
-  - gpg2 --batch --yes --passphrase=$PASSPHRASE --allow-secret-key-import --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring --import signingkey.asc
+  - gpg --batch --yes --passphrase=$PASSPHRASE --keyring=$TRAVIS_BUILD_DIR/pubring.gpg --no-default-keyring --import signingkey.asc
+  - gpg --batch --yes --passphrase=$PASSPHRASE --allow-secret-key-import --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring --import signingkey.asc
   - echo XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  - gpg2 --list-secret-keys --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring
+  - gpg --list-secret-keys --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring
   - echo XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   - mvn clean deploy --settings .maven.xml -DskipTests=true -Dgpg.publicKeyring=$TRAVIS_BUILD_DIR/pubring.gpg -Dgpg.secretKeyring=$TRAVIS_BUILD_DIR/secring.gpg -B -U -Prelease
 

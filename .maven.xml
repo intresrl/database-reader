@@ -16,7 +16,6 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <gpg.executable>${env.GPG_EXECUTABLE}</gpg.executable>
                 <gpg.passphrase>${env.PASSPHRASE}</gpg.passphrase>
                 <gpg.keyname>B6CB59E9615DE082C5469895235B3F3F808E8AFD</gpg.keyname>
             </properties>
