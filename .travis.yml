@@ -21,7 +21,20 @@ after_success:
 - gpg --batch --yes --passphrase=$PASSPHRASE --allow-secret-key-import --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring --import signingkey.asc
 - echo XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 - gpg --list-secret-keys --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring
-- echo XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+- echo YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+- echo PASSPHRASE chars
+- echo -n $PASSPHRASE | wc -m
+- echo PASSPHRASE bytes
+- echo -n $PASSPHRASE | wc -c
+- echo SONATYPE_PASSWORD chars
+- echo -n $SONATYPE_PASSWORD | wc -m
+- echo SONATYPE_PASSWORD bytes
+- echo -n $SONATYPE_PASSWORD | wc -c
+- echo SONATYPE_USERNAME chars
+- echo -n $SONATYPE_USERNAME | wc -m
+- echo SONATYPE_USERNAME bytes
+- echo -n $SONATYPE_USERNAME | wc -c
+- echo ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 - mvn clean deploy --settings .maven.xml -DskipTests=true -Dgpg.executable=gpg -Dgpg.keyname=B6CB59E9615DE082C5469895235B3F3F808E8AFD -Dgpg.passphrase=$PASSPHRASE -Dgpg.publicKeyring=$TRAVIS_BUILD_DIR/pubring.gpg -Dgpg.secretKeyring=$TRAVIS_BUILD_DIR/secring.gpg -B -U -Prelease
 
 before_deploy:
