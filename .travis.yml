@@ -1,24 +1,16 @@
 language: java
-
 jdk:
 - openjdk8
-
-env:
-  global:
-    - secure: UzfDq/y3Jbu4vmm5nxYkcUkQZNXtgc4Q+2Q05iiM2D3D1aX5r0gOOfC/22bPbvDRdUVtV24kVoN7lFHhrQnhXcC/BPLotQCnfvaDLU5L5mEs0r3iUHpzkY0W/ho4MDb6mmMtpk9PuYcgEJX6MRCQLgj9RUJZDsnhop12SC+ZCNWD19zyQiEuc/cVkn0hJ0KO2YEdmmCWeWzKlPJCHqWsoBgYVddnF59j+UxwonTcjfUxkEpmdr7PhzKSuOtSvqDHU/9vLGZcNAdw8z9WjsSapZCLXKKQyj+aB3oWh/yXCRI+Zvmxush2ka08xGWDo7XOEqEOiiIOySfvWu79CWuwi8FWXC1XAuWR9yuUoMqY3WNTdkfztYj/pRmDc4J5yRYBwUmkl6Uaw7w4+BfLSFWHAn++QP3mWB0aHW6I1q2+DMXhxv7xDbV4TLTwFzL0eLjXRm+oppi2lasy8dBRGoWT3GQmOjLFEnLZ8LeJUsWjyg/g+c64wgaPN8g1Iy52yIHTj0SwJ90qOym3r3EeDuhagAzFZfnj2w3jncmh8lV0rqwbDmxTsztut87ojY6oUtX//8YwKCSkuLNoLyiZolp13pGiuPYxGJlHfGT7M7mThw6W8ivGesRL7JEp0uo3MEYKlOnxOyKvvD0OLwJRRKq/64uSWdeDAJSZcc+G2ny2+l0=
-    - secure: W8Sb0OjvkeFRAxPdOlqESApZoj+RL29tPcM9ssgeEQ57RsFZL3k0EdNKtcWOL3Aa6Dv6kMGoxfLeceVx6ZM5dnhWE2QP0tHbqyM9DF1fd9++45X0U/LL75FQDUpP8J0vvJvHbQjWeKZC/QtEpkVC/6vNbvyn8OfxnoDw/Rvuq/9CKKvB3ZwtIaitXmBD3EggkyXSOyrdBt7Rr6LKsBkelNp0dxxlnYw8pzrO7lEsATnJRU88StmKXz56iYfTkf2xb1nKvKwd7VKf62Eu+LuxtNCodaSmm7aLjWQi6B1AUJvtMkDAArrN7o5sCJiPjJKQ35AUv9yz9qfXZU0HIii+1D0LgxS2XtporX2/iOcq60zmQvcFMiIrifXV8tSjbAbuYKoMnt2Gi+8qFIMSFW0t6uo25dKdl4Yngtol0KpF2PewejMHHFJK7t8W50Rf8ut27Ve35+efEy0fjvhp0e09x8dFdfwTMVyjuOkH/0yI1yBvrwjdkpCkxtizilVNAj08/65T7gEEHlDruN5klDCzZhQayGbchIQfYdWpkypM2hs4wi2ZiF09kqq28ZOIwWCbEmjdqXBKM3730FFYl6eAeCuJhByK/1waJ8UIQLL+3iHJuzqsOQuESSJlgev4TkCWhL5ijC3vtfVyXVVSBd/rQZCQkkCL55y/4XegXcyI7Sc=
-    - secure: kymGJfrpvafrVrGC8eQ5I1CH6GTBcb0GAk5z2imbELKeEFgAZ0WfjrKtTiTTBKvRW3KOuiJpokqQ57EXSbz57x0qS4DsHx2pS/Z3vcKYscQ1ytIbnUDmfDxgsKW2TPD2c6LHJFiOGAZ2OP9vm2BtHdy6vtN20oQ44QYwQanQ2g2BHeRuDU4gB4XOq8iEdOVcxIq9luiz/DfhiLEZcgqi2Uumbhn46FuExHVCyoxYGVsf8iUpotzEsGzRuXN8PEQ2CJEaREKPoclYPb8js3DfVNbt40Kg6FfHrKRSO6SdeWq6HZzabZHNO7zVOiUFj8K01/mo16CILH2iHLpZEygyXUF9XVdYXMouN9PsNaE+sf/fz/NOdhJSFquBL+TFCXieGfTsLi7SmXImz2T6n5xB1wyNPuFCcjODVsmo5WUOyvw+3xWU40Zd3GCN3aUkfRposVzu6adHBtUOBc2JthAxquYKXlGxIPdpyJ0xP+tp2z1cHrFQBFIhz+bdNDCuUsUaofknQyppk3MCSHIUBumqnYOOriPHG3tD6nbvUPrImi41QqZjUnqwF5bZ1z3hn6JLIog8UNj4fRvGom7efMN17PdAikoLzzhJHIXISG5JLpZcY03iij7ECZn42iFCRlQ2F1O6ywJI+mR/7AgpwRejy6RukwyP0P5SiWuLp3vVDrg=
-
-## export GPG details
 before_install:
-- openssl aes-256-cbc -K $encrypted_b03e57a992da_key -iv $encrypted_b03e57a992da_iv -in signingkey.asc.enc -out signingkey.asc -d
-
-install:
-  mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
-
+- openssl aes-256-cbc -K $encrypted_b03e57a992da_key -iv $encrypted_b03e57a992da_iv
+  -in signingkey.asc.enc -out signingkey.asc -d
+install: mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true
+  -B -V
 after_success:
-- gpg --batch --yes --passphrase=$PASSPHRASE --keyring=$TRAVIS_BUILD_DIR/pubring.gpg --no-default-keyring --import signingkey.asc
-- gpg --batch --yes --passphrase=$PASSPHRASE --allow-secret-key-import --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring --import signingkey.asc
+- gpg --batch --yes --passphrase=$PASSPHRASE --keyring=$TRAVIS_BUILD_DIR/pubring.gpg
+  --no-default-keyring --import signingkey.asc
+- gpg --batch --yes --passphrase=$PASSPHRASE --allow-secret-key-import --keyring=$TRAVIS_BUILD_DIR/secring.gpg
+  --no-default-keyring --import signingkey.asc
 - echo XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 - gpg --list-secret-keys --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring
 - echo YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
@@ -35,12 +27,13 @@ after_success:
 - echo SONATYPE_USERNAME bytes
 - echo -n $SONATYPE_USERNAME | wc -c
 - echo ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-- mvn clean deploy --settings .maven.xml -DskipTests=true -Dgpg.executable=gpg -Dgpg.keyname=B6CB59E9615DE082C5469895235B3F3F808E8AFD -Dgpg.passphrase=$PASSPHRASE -Dgpg.publicKeyring=$TRAVIS_BUILD_DIR/pubring.gpg -Dgpg.secretKeyring=$TRAVIS_BUILD_DIR/secring.gpg -B -U -Prelease
-
+- mvn clean deploy --settings .maven.xml -DskipTests=true -Dgpg.executable=gpg -Dgpg.keyname=B6CB59E9615DE082C5469895235B3F3F808E8AFD
+  -Dgpg.passphrase=$PASSPHRASE -Dgpg.publicKeyring=$TRAVIS_BUILD_DIR/pubring.gpg -Dgpg.secretKeyring=$TRAVIS_BUILD_DIR/secring.gpg
+  -B -U -Prelease
 before_deploy:
 - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
-- export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep -v '\[')
-
+- export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep
+  -v '\[')
 deploy:
   provider: releases
   api_key:
@@ -51,6 +44,10 @@ deploy:
   on:
     repo: intresrl/database-reader
   name: "$project_version"
-
 notifications:
   email: false
+env:
+  global:
+  - secure: qn/bZV4X3PC4thsjjHLQiMIcqUUgPkyljGcaA1cTgsuaiXcp2d6URLUVbCCBn23mNZCU0R7m608R8rL6KhS8izezJO6m1+ADrE1850Ocs9KVorF+weAZx32CclW8GrzfgV5j5X9PKUkkKn2R2VjPw2JchUSs1NYApN9N1nq0lPcuH5xnkkTyoO1LdeaQUc1OIOr9LsJPg13KpPRFZnzDTOe2PF5pmS0vs+ZvfvcnMi0YzIajSop9uES89m5E7vWEKYasm24j1tdn0llmJTIpimqO356bNSkjXm5kCFA8WifCkU34hKHL7+AYn6dQnLlr6uQ1VRaRqz0htQ6rbenmDkDEShQdft3wEJqUH2wvwhbiqhQhpNl6mrensmFTM1U78U/plsU4C9NYvunEzMMw+qljEdEZMPAThUDyP49HPQlgXzvDqbH+fHziy6m1kMTolNd1eRXRI1yfSavSkBAIeITL9BAjNLzXCxxvNTj1abZGqZKKdc623aiQcVN+rj4SfmSb1GdR2CoKzX3PnwSeTD4fI3nCx2h+xDxySwxEyb0cDr0RumPlP781PZiZL5HuE2LZ029VoQEyBeqj8zsFruce6JVNmDz0nt4EVtZ3JmEvJf1HWH79mjh6oEDHF1vnPV8+JqJwrpPlA2h9gLV9z9rZ53Jv2UQXcLYORbXsqlA=
+  - secure: UM8eaEwJt4jYPQ9vXUtaFUBwzZch0Lg7rPuoisGi55Ezk30CCXVIkD3gkq8LDZGkXoHvWvYtzQYLJqkL00ZGHr7YPBwFjscP2ZK0D4mK/tOBSKqDfbnwV6M+tCc2pIgwR0pbCDeYnV2U1aYDO+P7B8JciNuE4kvGxmepa4abjL9GA+CPLu3SIGBj5ia443yC/IlJSw/ckvFjxE/HS4G5OCYvKE+oa4oPN4cA3EiF60XVzs2U0lrhyb+oGWtB18aJsvkoFsUOMvJJfmlJ9LziJXmgiVGhQPlX1zH+9/oSBwnJtdDySRX2ukN7MbACn8VdT9d0z1QiMVpO3hlcRJiNA7wDPKLv6eUAk9uW0SCOD4EoHR64FmOKf/SNZGLl5n95RnBxUx75FbkuCoFkvtissedOg/znElhr40iCjPzY49mAEE7zBHvvEYr+Y+xMabHtK8w5L0mkjsF9RRp2cLQo6dydgBCR0y0lLhgB03plos0d4CmPKkV+28wNMuwe14rrzcf2fYlIXuHRY7llR4rZzVD5hp+WVs128TyK6e0vvsL9yeLccHsnHaR72LPCBeXE7JMws666x1wgrKMv/IS4Mfl3N0Pqfz0n3QTEYV11xJ61npiOj2SAu5kHJDTSWflmprOjte0hOJyLQezwCTAJjk6I3U5Ii8muG4tlpR8WnKs=
+  - secure: Aa1jwoQuvvfE8LIMZKxigasNcbURkEiMBhTwdGJf3+dRJfXEiDhb/hzh6IPMxLzTft4HVKtVVm0iWo/K96I+U/ZNYjwLt6B1C8EFuT+VQcEW59eIpWNo1cQmyxYFe4zFjIycsYA00C5v40vQF130/t9dFaHEer1/5m80SyGTbyM3NDYZvriS7wjE3zjTWTR2l8gRp4B8AXM+IHPbpbbqN7neZcVLTADVORYhQRmb/kIV2LXKYDctaAF49eSkXwwuXUUON0DjjRo3GncQhyGfCqZhPKgmoHDgRBAywZuwnWfkAsCpIRaEIxWVyW2mrAFh/XEXaqeJrW0W3gHq4c2kx1xnkpOpNB38Ujg7VoafCedAW9MBUH7FA91uR7AiDyvHtgpZ/x0IymmIAyYepe4Ve6GuOIXElWUqUwABxohoeHviX61PbwEW8tiFYtB6URCvhDtN/Wr1xGD5usCgPQ7esIswyBX1Ljkdmy6NioUugoTxS7JDFBqM1g46AYzz7wx2ILkEQxCvIzjPejbEEvdfhuJms6C+hx3K1QAAW4utYvqtmnW02kU7tg7tbCEaAra3CwOojOHHmYDSAR4uhBjyIePdjvDJwXhqzTIRuBXvACVBUXU8+08tYfrYh7xKbEU6eNMrM8AvXJ5gJk8cCLWJnVewLNsWxJWw1byPc62RJBo=
