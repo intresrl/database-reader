@@ -22,7 +22,7 @@ after_success:
 - echo XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 - gpg --list-secret-keys --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring
 - echo XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-- mvn clean deploy --settings .maven.xml -DskipTests=true -Dgpg.publicKeyring=$TRAVIS_BUILD_DIR/pubring.gpg -Dgpg.secretKeyring=$TRAVIS_BUILD_DIR/secring.gpg -B -U -Prelease
+- mvn clean deploy --settings .maven.xml -DskipTests=true -Dgpg.executable=gpg -Dgpg.keyname=B6CB59E9615DE082C5469895235B3F3F808E8AFD -Dgpg.passphrase=$PASSPHRASE -Dgpg.publicKeyring=$TRAVIS_BUILD_DIR/pubring.gpg -Dgpg.secretKeyring=$TRAVIS_BUILD_DIR/secring.gpg -B -U -Prelease
 
 before_deploy:
 - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
