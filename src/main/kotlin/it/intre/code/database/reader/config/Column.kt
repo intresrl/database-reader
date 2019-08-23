@@ -3,7 +3,7 @@ package it.intre.code.database.reader.config
 /**
  * Model of a DB column as read in a profile.
  */
-data class Column(val name: String) {
+data class Column(val name: String = "") {
 
     var alias: String? = null
     var type: String? = null
