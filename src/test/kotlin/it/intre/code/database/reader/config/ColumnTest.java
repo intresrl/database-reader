@@ -43,9 +43,8 @@ public class ColumnTest {
     }
 
     static Column createColumn(String name, String alias) {
-        Column column = new Column();
+        Column column = new Column(name);
         column.setAlias(alias);
-        column.setName(name);
         return column;
     }
 }
