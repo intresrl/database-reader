@@ -34,12 +34,11 @@ deploy:
   skip_cleanup: true
   on:
     repo: intresrl/database-reader
+    branches:
+      only:
+        - master
+        - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
   name: "$project_version"
 
 notifications:
   email: false
-
-branches:
-  only:
-    - master
-    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
