@@ -1,50 +1,69 @@
-package it.intre.code.database.reader.config;
+package it.intre.code.database.reader.config
 
-import org.junit.Test;
+import org.junit.Test
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Assert.assertEquals
 
-public class ColumnTest {
+class ColumnTest {
 
     @Test
-    public void getOutName_returns_alias_if_present() {
-        Column column = createColumn("NONNA PAPERA", "CICCIO");
-        assertEquals("CICCIO", column.getOutName());
+    fun getOutName_returns_alias_if_present() {
+        val column = createColumn("NONNA PAPERA", "CICCIO")
+        assertEquals("CICCIO", column.outName)
     }
 
     @Test
-    public void getOutName_returns_name_if_null_alias() {
-        Column column = createColumn("PAPERONE", null);
-        assertEquals("PAPERONE", column.getOutName());
+    fun getOutName_returns_name_if_null_alias() {
+        val column = createColumn("PAPERONE", null)
+        assertEquals("PAPERONE", column.outName)
     }
 
     @Test
-    public void getOutName_returns_name_if_empty_alias() {
-        Column column = createColumn("PAPERONE", "");
-        assertEquals("PAPERONE", column.getOutName());
+    fun getOutName_returns_name_if_empty_alias() {
+        val column = createColumn("PAPERONE", "")
+        assertEquals("PAPERONE", column.outName)
     }
 
     @Test
-    public void getNameWithAlias_returns_name_when_no_alias() {
-        Column column = createColumn("PAPEROGA", null);
-        assertEquals("PAPEROGA", column.getNameWithAlias());
+    fun getNameWithAlias_returns_name_when_no_alias() {
+        val column = createColumn("PAPEROGA", null)
+        assertEquals("PAPEROGA", column.nameWithAlias)
     }
 
     @Test
-    public void getNameWithAlias_returns_name_when_alias_is_the_same() {
-        Column column = createColumn("PIPPO", "PIPPO");
-        assertEquals("PIPPO", column.getNameWithAlias());
+    fun getNameWithAlias_returns_name_when_alias_is_the_same() {
+        val column = createColumn("PIPPO", "PIPPO")
+        assertEquals("PIPPO", column.nameWithAlias)
     }
 
     @Test
-    public void getNameWithAlias_returns_name_and_alias_when_different() {
-        Column column = createColumn("PAPERINO", "PAPERINIK");
-        assertEquals("PAPERINO AS PAPERINIK", column.getNameWithAlias());
+    fun getNameWithAlias_returns_name_and_alias_when_different() {
+        val column = createColumn("PAPERINO", "PAPERINIK")
+        assertEquals("PAPERINO AS PAPERINIK", column.nameWithAlias)
     }
 
-    static Column createColumn(String name, String alias) {
-        Column column = new Column(name);
-        column.setAlias(alias);
-        return column;
+    @Test
+    fun `two columns with same attributes are equal`() {
+        val column1 = createColumn("Number 1", "ONE");
+        column1.formatSource = "sorcio"
+        column1.isAggregate = true
+        column1.isDerived = false
+        column1.type = "INT"
+
+        val column2 = createColumn("Number 1", "ONE");
+        column2.formatSource = "sorcio"
+        column2.isAggregate = true
+        column2.isDerived = false
+        column2.type = "INT"
+
+        assertEquals(column1, column2)
+    }
+
+    companion object {
+        internal fun createColumn(name: String, alias: String?): Column {
+            val column = Column(name)
+            column.alias = alias
+            return column
+        }
     }
 }
