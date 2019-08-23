@@ -7,7 +7,11 @@ internal class OrderFieldTest {
 
     @Test
     fun `toString concatenates id and direction`() {
-        val orderField = OrderField("deploy", "value")
-        assertEquals("deploy value", orderField.toString())
+        var cacca : CharSequence? = "CIAO"
+        println(cacca.isNullOrEmpty())
+        cacca=""
+        println(cacca.isNullOrEmpty())
+        cacca=null
+        println((cacca as CharSequence?).isNullOrEmpty())
     }
 }
