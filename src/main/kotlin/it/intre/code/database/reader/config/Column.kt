@@ -35,19 +35,13 @@ data class Column(var name: String = "") {
 
     enum class NameGenerator {
         ONLY_NAME_NO_DERIVED {
-            override fun generate(col: Column): String {
-                return if (col.isDerived) "" else col.name
-            }
+            override fun generate(col: Column) = if (col.isDerived) "" else col.name
         },
         ONLY_ALIAS {
-            override fun generate(col: Column): String {
-                return col.outName
-            }
+            override fun generate(col: Column) = col.outName
         },
         NAME_WITH_ALIAS {
-            override fun generate(col: Column): String {
-                return col.nameWithAlias
-            }
+            override fun generate(col: Column) = col.nameWithAlias
         };
 
         abstract fun generate(col: Column): String
