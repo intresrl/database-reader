@@ -10,24 +10,24 @@ data class QueryStringFilter internal constructor(
         /**
          * If not blank, return only the last value of field with this name and the number of rows.
          */
-        var last: String?,
+        var last: String? = null,
         /**
          * Page number (starting from 0)
          */
-        var page: Int?,
+        var page: Int? = null,
         /* The following two parameters (pageFrom and pageTo) are used in alternative to "page" parameter when getting more than one page */
         /**
          * First page number
          */
-        var pageFrom: Int?,
+        var pageFrom: Int? = null,
         /**
          * Last page number
          */
-        var pageTo: Int?,
+        var pageTo: Int? = null,
         /**
          * Page size
          */
-        var size: Int?,
+        var size: Int? = null,
         /**
          * Optional list of fields to SELECT (if empty, all fields in profile will be returned)
          */
@@ -41,12 +41,12 @@ data class QueryStringFilter internal constructor(
          * Works in pair with [.orderDir] to produce [.getOrderFields].
          */
         // FIXME DAMIANO parallel lists... replace with map?
-        private var orderBy: List<String>?,
+        private var orderBy: List<String>? = listOf(),
         /**
          * List of ordering directions in ORDER BY clause.
          * Works in pair with [.orderBy] to produce [.getOrderFields].
          */
-        private var orderDir: List<String>?) {
+        private var orderDir: List<String>? = listOf()) {
 
 
     val orderFields: List<OrderField>
@@ -59,7 +59,7 @@ data class QueryStringFilter internal constructor(
             return fieldNames.zip(dirs).map { (fieldId,dir) -> OrderField(fieldId,dir) }
         }
 
-    fun getGroupAsString(toRemove: String) = groupBy.filter { !it.equals(toRemove, true)}.joinToString(",")
+    fun getGroupAsString(toRemove: String?) = groupBy.filter { !it.equals(toRemove, true)}.joinToString(",")
 
 
     fun isContainedInGroup(column: Column) = groupBy.any{ x -> x.equals(column.name, true)}
