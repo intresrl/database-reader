@@ -5,15 +5,15 @@ data class ComparisonFilter(
         override var all: Boolean,
         override var negate: Boolean,
         /** Greater than */
-        var gt: Any?,
+        var gt: Any? = null,
         /** Greater than or equal to */
-        var ge: Any?,
+        var ge: Any? = null,
         /** Less than */
-        var lt: Any?,
+        var lt: Any? = null,
         /** Less than or equal to */
-        var le: Any?,
+        var le: Any? = null,
         /** [.DATATYPE_STRING] (default if null) or #DATATYPE_INTEGER */
-        var datatype: String?
+        var datatype: String? = null
 ) : GenericFilter(name, all, negate) {
 
     override fun hasCondition(): Boolean {
