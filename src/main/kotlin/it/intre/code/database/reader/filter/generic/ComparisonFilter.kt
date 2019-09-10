@@ -16,9 +16,9 @@ data class ComparisonFilter(
         var datatype: String? = null
 ) : GenericFilter(name, all, negate) {
 
-    override fun hasCondition(): Boolean {
-        return ge != null || gt != null || le != null || lt != null
-    }
+    override fun hasCondition() = !hasNoCondition()
+
+    fun hasNoCondition() = all && !negate || ge == null && gt == null && le == null && lt == null
 
     companion object {
         val DATATYPE_STRING = "String"

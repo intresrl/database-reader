@@ -1,13 +1,9 @@
 package it.intre.code.database.reader.filter.generic
 
-import org.junit.Before
-import org.junit.Test
-
-import java.util.Collections
-
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 import java.util.Arrays.asList
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 
 class TextFilterTest {
     private val all1 = TextFilter("X", true, false, EMPTY_LIST, true)

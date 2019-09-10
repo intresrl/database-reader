@@ -1,16 +1,15 @@
 package it.intre.code.database.reader.config
 
-import org.junit.Before
-import org.junit.Test
-
 import it.intre.code.database.reader.config.Column.NameGenerator.*
-import org.junit.Assert.assertEquals
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class NameGeneratorTest {
 
     private var column: Column? = null
 
-    @Before
+    @BeforeEach
     @Throws(Exception::class)
     fun setUp() {
         column = ColumnTest.createColumn("ETA", "BETA")

@@ -9,7 +9,7 @@
         <artifactId>oss-parent</artifactId>
         <version>9</version>
     </parent>
-    
+
     <groupId>it.intre</groupId>
     <artifactId>database-reader</artifactId>
     <version>1.0.22-SNAPSHOT</version>
@@ -122,15 +122,15 @@
             <version>1.0.0.Final</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <version>2.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.4.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

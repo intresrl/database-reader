@@ -2,7 +2,7 @@ package it.intre.code.database.reader.filter
 
 import it.intre.code.database.reader.config.Column
 import it.intre.code.database.reader.sql.SqlMatcher
-import org.junit.Assert.assertThat
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach

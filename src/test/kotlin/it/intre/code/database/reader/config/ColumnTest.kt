@@ -1,8 +1,8 @@
 package it.intre.code.database.reader.config
 
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
-import org.junit.Assert.assertEquals
 
 class ColumnTest {
 
@@ -44,13 +44,13 @@ class ColumnTest {
 
     @Test
     fun `two columns with same attributes are equal`() {
-        val column1 = createColumn("Number 1", "ONE");
+        val column1 = createColumn("Number 1", "ONE")
         column1.formatSource = "sorcio"
         column1.isAggregate = true
         column1.isDerived = false
         column1.type = "INT"
 
-        val column2 = createColumn("Number 1", "ONE");
+        val column2 = createColumn("Number 1", "ONE")
         column2.formatSource = "sorcio"
         column2.isAggregate = true
         column2.isDerived = false
