@@ -74,4 +74,10 @@ class QueryStringFilterTest {
         val queryStringFilter = QueryStringFilter(orderBy = orderBy, orderDir = orderDir)
         assertEquals(expected, queryStringFilter.orderFields)
     }
+
+    @Test
+    fun hasGroupBy() {
+        assertFalse(QueryStringFilter().hasGroupBy())
+        assertTrue(QueryStringFilter(groupBy = listOf("A")).hasGroupBy())
+    }
 }
