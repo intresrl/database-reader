@@ -41,12 +41,12 @@ data class QueryStringFilter internal constructor(
          * Works in pair with [.orderDir] to produce [.getOrderFields].
          */
         // FIXME DAMIANO parallel lists... replace with map?
-        private var orderBy: List<String>? = listOf(),
+        var orderBy: List<String>? = listOf(),
         /**
          * List of ordering directions in ORDER BY clause.
          * Works in pair with [.orderBy] to produce [.getOrderFields].
          */
-        private var orderDir: List<String>? = listOf()) {
+        var orderDir: List<String>? = listOf()) {
 
 
     val orderFields: List<OrderField>

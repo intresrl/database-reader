@@ -6,7 +6,7 @@ import it.intre.code.database.reader.filter.generic.ComparisonFilter
 import it.intre.code.database.reader.filter.generic.GenericFilter
 import it.intre.code.database.reader.filter.generic.TextFilter
 import it.intre.code.database.reader.sql.SqlFilterBuilder.Companion.toFieldNameOrExpression
-import it.intre.code.database.reader.sql.SqlHelper.TRUE
+import it.intre.code.database.reader.sql.SqlHelper.Companion.TRUE
 import it.intre.code.database.reader.sql.SqlMatcher.Companion.matchesSql
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.MatcherAssert.assertThat
@@ -16,14 +16,14 @@ import java.util.*
 
 class SqlFilterBuilderTest {
 
-    private val TEXT_ALL = TextFilter("", true, false, emptyList(), false)
-    private val NUMBER_NEGATE_ALL = ComparisonFilter("", true, true, "A", "B", "C", "D", "E")
-    private val TEXT_DERIVED = TextFilter("derived", false, false, listOf("one", "two"), false)
-    private val INT_3_TO_10_EXCLUDED = ComparisonFilter("I", datatype = ("Integer"), gt = 3, lt = 10)
-    private val STRING_A_INCLUDED_TO_Z_EXCLUDED = ComparisonFilter("S", ge = ("A"), lt = ("Z"))
-    private val STRING_10_TO_2_INCLUDED_NEGATE = ComparisonFilter("X", datatype = ("String"), ge = 10, le = 2, negate = (true))
-    private val INT_ALL_CONDITIONS = ComparisonFilter("N", datatype = ("Integer"), ge = 1, gt = 2, le = 3, lt = 4)
-    private val INT_ONE_CONDITION = ComparisonFilter("Y", datatype = ("Integer"), le = 42)
+    private val TEXT_ALL = TextFilter("", all = true, negate = false, values = emptyList(), withBlank = false)
+    private val NUMBER_NEGATE_ALL = ComparisonFilter("", all = true, negate = true, gt = "A", ge = "B", lt = "C", le = "D", datatype = "E")
+    private val TEXT_DERIVED = TextFilter("derived", all = false, negate = false, values = listOf("one", "two"), withBlank = false)
+    private val INT_3_TO_10_EXCLUDED = ComparisonFilter("I", datatype = "Integer", gt = 3, lt = 10)
+    private val STRING_A_INCLUDED_TO_Z_EXCLUDED = ComparisonFilter("S", ge = "A", lt = "Z")
+    private val STRING_10_TO_2_INCLUDED_NEGATE = ComparisonFilter("X", datatype = "String", ge = 10, le = 2, negate = true)
+    private val INT_ALL_CONDITIONS = ComparisonFilter("N", datatype = "Integer", ge = 1, gt = 2, le = 3, lt = 4)
+    private val INT_ONE_CONDITION = ComparisonFilter("Y", datatype = "Integer", le = 42)
     private val NO_CONDITIONS = ComparisonFilter("this should not be used")
     private val DERIVED_COLUMN_PROFILE = mockProfileWithDerivedColumns("I", "S", "X", "N", "Y")
 
