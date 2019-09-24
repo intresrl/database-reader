@@ -11,6 +11,7 @@ import java.util.stream.Stream
 internal class ComparisonFilterTest {
 
     companion object {
+        @Suppress("unused")
         @JvmStatic
         fun getListComparisonFilter(): Stream<Arguments> = listOf<Arguments>(
                 TestArguments.of(false, ComparisonFilter("", all = false, negate = false)),

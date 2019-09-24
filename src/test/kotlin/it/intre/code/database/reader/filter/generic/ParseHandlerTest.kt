@@ -10,6 +10,7 @@ import java.util.stream.Stream
 class ParseHandlerTest {
 
     companion object {
+        @Suppress("unused")
         @JvmStatic
         fun getArguments(): Stream<Arguments> = listOf<Arguments>(
                 TestArguments.of(true, listOf("true")),
@@ -27,11 +28,6 @@ class ParseHandlerTest {
     @MethodSource("getArguments")
     fun `Returns true only if each element is "true" ✅`(expected: Boolean, list: List<String>) {
         Assertions.assertEquals(expected, ParseHandler.toBoolean(list))
-    }
-
-
-    private fun toBoolean(vararg s: String?): Boolean {
-        return ParseHandler.toBoolean(listOf(*s))
     }
 
 

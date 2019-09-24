@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import java.util.Arrays.asList
 import java.util.stream.Stream
 
 class QueryStringFilterTest {
@@ -19,7 +18,7 @@ class QueryStringFilterTest {
 
     @BeforeEach
     fun setUp() {
-        filter.groupBy = asList("G-1", "G-2", "G-3")
+        filter.groupBy = listOf("G-1", "G-2", "G-3")
     }
 
     @Test
@@ -49,6 +48,7 @@ class QueryStringFilterTest {
     }
 
     companion object {
+        @Suppress("unused")
         @JvmStatic
         fun getArguments(): Stream<Arguments> = listOf<Arguments>(
                 TestArguments.of(listOf<OrderField>(), listOf<String>(), listOf<String>()),

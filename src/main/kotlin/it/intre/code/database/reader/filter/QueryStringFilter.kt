@@ -54,7 +54,7 @@ data class QueryStringFilter internal constructor(
             val fieldNames = orderBy ?: listOf()
             val fieldDirs = (orderDir ?: listOf())
             val take = generateSequence { OrderField.ASC }.take(max(0,fieldNames.size - fieldDirs.size))
-            val dirs = (fieldDirs + take).slice(0 until fieldNames.size)
+            val dirs = (fieldDirs + take).slice(fieldNames.indices)
 
             return fieldNames.zip(dirs).map { (fieldId,dir) -> OrderField(fieldId,dir) }
         }

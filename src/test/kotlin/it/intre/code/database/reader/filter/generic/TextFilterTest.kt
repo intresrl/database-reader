@@ -3,7 +3,6 @@ package it.intre.code.database.reader.filter.generic
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import java.util.Arrays.asList
 
 class TextFilterTest {
     private val all1 = TextFilter("X", true, false, EMPTY_LIST, true)
@@ -62,7 +61,7 @@ class TextFilterTest {
     companion object {
 
         private val EMPTY_LIST = emptyList<String>()
-        private val LIST = asList("a", "b")
+        private val LIST = listOf("a", "b")
     }
 
 }

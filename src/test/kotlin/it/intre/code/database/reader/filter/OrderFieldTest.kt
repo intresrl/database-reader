@@ -10,6 +10,7 @@ import java.util.stream.Stream
 internal class OrderFieldTest {
 
     companion object {
+        @Suppress("unused")
         @JvmStatic
         fun getArguments(): Stream<Arguments> = listOf<Arguments>(
                 TestArguments.of(" ", OrderField()),

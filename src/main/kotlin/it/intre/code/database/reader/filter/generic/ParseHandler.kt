@@ -1,9 +1,8 @@
 package it.intre.code.database.reader.filter.generic
 
 import java.util.Collections.emptyList
-import javax.ws.rs.core.MultivaluedMap
 
-abstract class ParseHandler internal constructor(private val params: MultivaluedMap<String, String>) {
+abstract class ParseHandler internal constructor(private val params: Map<String, List<String>>) {
 
     internal fun toFilter(name: String): GenericFilter {
         val filter = this.toSpecificFilter(name)
@@ -27,24 +26,24 @@ abstract class ParseHandler internal constructor(private val params: Multivalued
 
         /**
          * Keys starting with [GenericFilterParser.PREFIX] and ending with this suffix
-         * will set the option [TextFilter.setNegate] on the filter
+         * will set the option [TextFilter.negate] on the filter
          * of the corresponding field: the name is obtained by stripping away prefix and suffix.
          *
          *
          * Example: ` f.foo=["1"] ; f.foo.negate=["true"] `
          * leads to a filter with name = "foo", values = ["1"] and negate = true
          */
-        val NEGATE_SUFFIX = ".negate"
+        const val NEGATE_SUFFIX = ".negate"
         /**
          * Keys starting with [GenericFilterParser.PREFIX] and ending with this suffix
-         * will set the option [TextFilter.setAll] on the filter
+         * will set the option [TextFilter.all] on the filter
          * of the corresponding field: the name is obtained by stripping away prefix and suffix.
          *
          *
          * Example: ` f.foo=["1"] ; f.foo.all=["true"] `
          * leads to a filter with name = "foo", values = ["1"] and all = true
          */
-        val ALL_SUFFIX = ".all"
+        const val ALL_SUFFIX = ".all"
 
         internal fun toBoolean(list: List<String?>) = list
                 .map { it?.toBoolean() ?: false }
