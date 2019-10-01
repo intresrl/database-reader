@@ -1,0 +1,25 @@
+{
+  "name": "PROFILE_NAME",
+  "queries": [{
+    "table": "TABLE_NAME",
+    "columns": [{
+      "alias": "alias1",
+      "name": "name1",
+      "type": "string",
+      "aggregate": false
+    },{
+      "alias": "alias2",
+      "name": "name2",
+      "type": "string",
+      "derived": true
+    }],
+	"where": "field = 0",
+	"group": "",
+	"having": "",
+	"order": "name2 desc",
+    "extraWhere": {
+      "custom1": "custom1 = TO_DATE('?','YYYYMMDD')",
+      "custom2": "NVL(foo,bar)>=? AND baz<?"
+    }
+  }]
+}

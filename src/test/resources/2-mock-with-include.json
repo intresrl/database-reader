@@ -1,0 +1,9 @@
+{
+    "name": "mock2",
+    "queries": [
+        {
+            "table": "table2",
+            "include": "2-include"
+        }
+    ]
+}
