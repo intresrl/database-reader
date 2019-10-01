@@ -27,7 +27,7 @@ class FilterContainer {
         get() = paramValues.keys
 
     val isProfileSet: Boolean
-        get() = isNotEmpty(profile)
+        get() = !profile.isNullOrBlank()
 
     val isPaginationSqlSet: Boolean
         get() = isPageRangeSet && isSizeSet

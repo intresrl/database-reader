@@ -1,0 +1,17 @@
+{
+    "table": "a",
+    "columns": [
+        {
+            "alias": "b",
+            "name": "c",
+            "type": "d"
+        }
+    ],
+    "where": "e",
+    "group": "f",
+    "having": "g",
+    "order": "h",
+    "extraWhere": {
+        "i": "j"
+    }
+}
