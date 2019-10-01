@@ -10,7 +10,7 @@ data class ReaderResultSet @JvmOverloads constructor(
         /**
          * Function returning current time stamp in nanosecond
          */
-        val getNanoTime: () -> Long,
+        val getNanoTime: () -> Long = System::nanoTime,
         /**
          * The [List] of records: each one is a map from field name (@[String]) to value (@[Object]).
          */
