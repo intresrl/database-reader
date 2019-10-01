@@ -8,18 +8,18 @@ import java.util.Collections.emptyList
 
 data class ReaderResultSet @JvmOverloads constructor(
         /**
+         * Function returning current time stamp in nanosecond
+         */
+        val getNanoTime: () -> Long,
+        /**
          * The [List] of records: each one is a map from field name (@[String]) to value (@[Object]).
          */
         var list: List<Map<String, Any>>? = emptyList(),
+
         /**
          * Total number of rows matching the filter (ignoring pagination).
          */
-        var totalRows: Int = 0,
-
-        /**
-         * Function returning current time stamp in nanosecond
-         */
-        val getNanoTime : () -> Long
+        var totalRows: Int = 0
 ) {
 
     /**
