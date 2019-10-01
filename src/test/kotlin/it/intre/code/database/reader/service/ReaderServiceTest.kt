@@ -4,70 +4,53 @@ import it.intre.code.database.reader.config.Column
 import it.intre.code.database.reader.dao.ReaderDao
 import it.intre.code.database.reader.filter.FilterContainer
 import it.intre.code.database.reader.resultset.ReaderResultSet
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
-import org.mockito.InjectMocks
-import org.mockito.Matchers.any
-import org.mockito.Mock
+import org.junit.jupiter.api.Test
 import org.mockito.Mockito.`when`
-import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.Mockito.mock
 
-@ExtendWith(MockitoExtension::class)
-@RunWith(JUnitPlatform::class)
 class ReaderServiceTest {
 
-    @InjectMocks
-    internal var readerService: ReaderService? = null
-    @Mock
-    private val readerDao: ReaderDao? = null
+    private val readerDao = mock(ReaderDao::class.java)
 
-    private var error: ReaderResultSet? = null
-    private var success: ReaderResultSet? = null
-    private var filter: FilterContainer? = null
-    private var exception: RuntimeException? = null
+    private val error = ReaderResultSet().apply {
+        isError = true
+        errorMessage = "D'OH!"
+    }
 
-    @BeforeAll
-    fun setUp() {
-        error = ReaderResultSet()
-        error!!.isError = true
-        error!!.errorMessage = "D'OH!"
-
-        success = ReaderResultSet()
-        success!!.columns = listOf(Column(), Column())
-        success!!.list = listOf(
+    private val success = ReaderResultSet().apply {
+        columns = listOf(Column("One"), Column("Two"))
+        list = listOf(
                 mapOf("A" to "Alpha", "B" to "Beta"),
                 mapOf("A" to "Aleph", "B" to "Beth")
         )
-
-        filter = FilterContainer()
-        exception = RuntimeException("D'OH!")
     }
+
+    private val filter = FilterContainer()
+
+    private val exception = RuntimeException("D'OH!")
 
     @Test
     fun findOk() {
-        `when`(readerDao!!.find(any())).thenReturn(success)
-        assertEquals(success, readerService!!.find(filter!!))
+        `when`(readerDao.find(filter)).thenReturn(success)
+        assertEquals(success, ReaderService.make(readerDao).find(filter))
     }
 
     @Test
     fun getColumnsOk() {
-        `when`(readerDao!!.getColumns(any())).thenReturn(success)
-        assertEquals(success, readerService!!.getColumns(filter!!))
+        `when`(readerDao.getColumns(filter)).thenReturn(success)
+        assertEquals(success, ReaderService.make(readerDao).getColumns(filter))
     }
 
     @Test
     fun findKo() {
-        `when`(readerDao!!.find(any())).thenThrow(exception)
-        assertEquals(error, readerService!!.find(filter!!))
+        `when`(readerDao.find(filter)).thenThrow(exception)
+        assertEquals(error, ReaderService.make(readerDao).find(filter))
     }
 
     @Test
     fun getColumnsKo() {
-        `when`(readerDao!!.getColumns(any())).thenThrow(exception)
-        assertEquals(error, readerService!!.getColumns(filter!!))
+        `when`(readerDao.getColumns(filter)).thenThrow(exception)
+        assertEquals(error, ReaderService.make(readerDao).getColumns(filter))
     }
 }
