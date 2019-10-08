@@ -8,11 +8,13 @@ abstract class GenericFilter(
          * If true, it means that any value is valid
          * (ignore other conditions except [.isNegate]).
          */
+        @get:JvmName("isAll")
         open var all: Boolean,
         /**
          * If true, it means that the filter is inverted
          * (e.g. it matches no values at all if [.isAll] is true).
          */
+        @get:JvmName("isNegate")
         open var negate: Boolean
 ) {
 

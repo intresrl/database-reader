@@ -58,11 +58,13 @@ class GenericFilterParser(private val params: MultivaluedMap<String, String>) {
          */
         const val PREFIX = "f."
 
-        internal fun noPrefix(key: String): String {
+        @JvmStatic
+        fun noPrefix(key: String): String {
             return key.replace(("^" + quote(PREFIX)).toRegex(), "")
         }
 
-        internal fun noSuffix(key: String): String {
+        @JvmStatic
+        fun noSuffix(key: String): String {
             val k = noPrefix(key)
             val pre = if (key == k) "" else PREFIX
             val regex = "[.][^.]+$"

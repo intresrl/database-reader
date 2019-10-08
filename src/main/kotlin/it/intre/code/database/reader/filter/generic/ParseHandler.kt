@@ -4,7 +4,7 @@ import java.util.Collections.emptyList
 
 abstract class ParseHandler internal constructor(private val params: Map<String, List<String>>) {
 
-    internal fun toFilter(name: String): GenericFilter {
+    fun toFilter(name: String): GenericFilter {
         val filter = this.toSpecificFilter(name)
         filter.all = filter.all || toBoolean(name, ALL_SUFFIX)
         filter.negate = toBoolean(name, NEGATE_SUFFIX)
@@ -45,7 +45,8 @@ abstract class ParseHandler internal constructor(private val params: Map<String,
          */
         const val ALL_SUFFIX = ".all"
 
-        internal fun toBoolean(list: List<String?>) = list
+        @JvmStatic
+        fun toBoolean(list: List<String?>) = list
                 .map { it?.toBoolean() ?: false }
                 .minBy { it } == true
     }

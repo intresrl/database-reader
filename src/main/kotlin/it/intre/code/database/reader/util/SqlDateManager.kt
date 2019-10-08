@@ -4,9 +4,10 @@ import java.text.SimpleDateFormat
 import java.util.TimeZone
 
 object SqlDateManager {
-    private const val DEFAULT_TIMEZONE = "UTC+0"
-    private const val DEFAULT_DATE_FORMAT = "yyyy-MM-dd"
+    const val DEFAULT_TIMEZONE = "UTC+0"
+    const val DEFAULT_DATE_FORMAT = "yyyy-MM-dd"
 
+    @JvmStatic
     fun getFormatterFromFormatString(format: String?): SimpleDateFormat {
         val sourceDateFormat = if (!format.isNullOrEmpty()) format else DEFAULT_DATE_FORMAT
         val dateFormatter = SimpleDateFormat(sourceDateFormat)
@@ -14,6 +15,7 @@ object SqlDateManager {
         return dateFormatter
     }
 
+    @JvmStatic
     fun fromTimestampToString(timestamp: Any?) = timestamp?.toString() ?: ""
 
 }

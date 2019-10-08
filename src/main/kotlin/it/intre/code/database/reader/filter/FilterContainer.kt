@@ -2,7 +2,6 @@ package it.intre.code.database.reader.filter
 
 import it.intre.code.database.reader.filter.generic.GenericFilter
 import it.intre.code.database.reader.filter.generic.GenericFilterParser
-import org.apache.commons.lang3.StringUtils.isNotEmpty
 import java.util.*
 import javax.ws.rs.core.MultivaluedHashMap
 import javax.ws.rs.core.MultivaluedMap
