@@ -11,4 +11,6 @@ interface ReaderDao {
     fun find(filter: FilterContainer): ReaderResultSet
 
     fun getColumns(filter: FilterContainer): ReaderResultSet
+
+    fun setGenericDataSource(genericDataSource: GenericDataSource)
 }

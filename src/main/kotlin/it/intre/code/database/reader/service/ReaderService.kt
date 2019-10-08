@@ -1,5 +1,6 @@
 package it.intre.code.database.reader.service
 
+import it.intre.code.database.reader.dao.GenericDataSource
 import it.intre.code.database.reader.dao.ReaderDao
 import it.intre.code.database.reader.filter.FilterContainer
 import it.intre.code.database.reader.resultset.ReaderResultSet
@@ -8,6 +9,10 @@ class ReaderService private constructor(private val readerDao: ReaderDao) {
 
     companion object {
         fun make(readerDao: ReaderDao) = ReaderService(readerDao)
+    }
+
+    fun setGenericDataSource(genericDataSource: GenericDataSource) {
+        readerDao.setGenericDataSource(genericDataSource)
     }
 
     fun find(filter: FilterContainer): ReaderResultSet {
