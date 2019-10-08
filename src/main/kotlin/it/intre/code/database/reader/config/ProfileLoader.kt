@@ -8,7 +8,7 @@ import java.net.URL
 /**
  * Loader of read profiles
  */
-class ProfileLoader {
+open class ProfileLoader {
 
     fun loadProfile(filter: FilterContainer, toUrl : (String) -> URL?): ReadProfile? {
         val profileName = filter.profile
