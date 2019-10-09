@@ -11,8 +11,8 @@ import it.intre.code.database.reader.sql.SqlHelperTest.Companion.createQueryProf
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentMatchers
 import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.invocation.InvocationOnMock
@@ -24,27 +24,23 @@ import javax.sql.DataSource
 
 class ReaderDaoImplTest {
 
-    private val sut: ReaderDaoImpl = ReaderDaoImpl()
+    private val sut = ReaderDaoImpl()
 
-    private val profileLoader: ProfileLoader = mock(ProfileLoader::class.java)
-
-    private var dataSource: DataSource = mock(DataSource::class.java)
-
-    private val mockConnection: Connection = mock(Connection::class.java)
-
-    private val stm: Statement = mock(Statement::class.java)
-
-    private val meta: ResultSetMetaData = mock(ResultSetMetaData::class.java)
-
-    private val rs: ResultSet = mock(ResultSet::class.java)
-
-    private var mockProfile: ReadProfile? = null
-
-    val profileUrlResolver = object : ProfileUrlResolver {
-        override fun toUrl(path: String) = with("$path.json") {
-            Thread.currentThread().contextClassLoader?.getResource(this) ?: ClassLoader.getSystemResource(this)
-        }
+    private val profileLoader = object : ProfileLoader() {
+        override fun loadProfile(filter: FilterContainer, toUrl: (String) -> URL?) = mockProfile
     }
+
+    private var dataSource = mock(DataSource::class.java)
+
+    private val mockConnection = mock(Connection::class.java)
+
+    private val stm = mock(Statement::class.java)
+
+    private val meta = mock(ResultSetMetaData::class.java)
+
+    private val rs = mock(ResultSet::class.java)
+
+    private var mockProfile = ReadProfile()
 
     @BeforeEach
     fun setUp() {
@@ -53,18 +49,19 @@ class ReaderDaoImplTest {
             override val connection: Connection
                 get() = mockConnection
         })
-        sut.setProfileUrlResolver(profileUrlResolver)
+        sut.setProfileUrlResolver(object : ProfileUrlResolver {
+            override fun toUrl(profileName: String) = URL("http://what.ever")
+        })
 
-        mockProfile = ReadProfile()
-        mockProfile!!.name = PROFILE_NAME
-        mockProfile!!.queries = listOf(createQueryProfile())
+        mockProfile.name = PROFILE_NAME
+        mockProfile.queries = listOf(createQueryProfile())
     }
 
     @Throws(SQLException::class)
     private fun setUpMocks() {
         `when`(dataSource.connection).thenReturn(mockConnection)
         `when`(mockConnection.createStatement()).thenReturn(stm)
-        `when`(stm.executeQuery(ArgumentMatchers.any())).thenReturn(rs)
+        `when`(stm.executeQuery(any())).thenReturn(rs)
         `when`(rs.metaData).thenReturn(meta)
         val oneRow = object : Answer<Boolean> {
             private var count = 0
@@ -74,19 +71,17 @@ class ReaderDaoImplTest {
             }
         }
         `when`(rs.next()).thenAnswer(oneRow)
-        `when`<Any>(rs.getObject(ArgumentMatchers.anyInt())).thenReturn(MOCK_ROW_COUNT, MOCK_LAST_VALUE)
-        `when`(meta.getColumnName(ArgumentMatchers.anyInt())).thenReturn("rowcount", "the_last")
+        `when`<Any>(rs.getObject(anyInt())).thenReturn(MOCK_ROW_COUNT, MOCK_LAST_VALUE)
+        `when`(meta.getColumnName(anyInt())).thenReturn("rowcount", "the_last")
         `when`(meta.columnCount).thenReturn(2)
     }
 
     @Test
     fun getColumns() {
-        `when`(profileLoader.loadProfile(ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(mockProfile)
-
         val actual = sut.getColumns(FilterContainer())
 
         val expected = ReaderResultSet()
-        expected.columns = mockProfile!!.columns
+        expected.columns = mockProfile.columns
 
         assertEquals(expected, actual)
     }
@@ -96,11 +91,10 @@ class ReaderDaoImplTest {
     fun findLast() {
         val filterContainer = FilterContainer()
         filterContainer.profile = PROFILE_NAME
-        filterContainer.customFilters = listOf<TextFilter>(TextFilter("Y", false, false, asList<String>("BAR", "BAZ"), false))
+        filterContainer.customFilters = listOf(TextFilter(name = "Y", all = false, negate = false, values = asList("BAR", "BAZ"), withBlank = false))
         val queryStringFilter = QueryStringFilter()
         queryStringFilter.last = "the_last"
         filterContainer.queryStringFilter = queryStringFilter
-        `when`(profileLoader.loadProfile(filterContainer, profileUrlResolver::toUrl)).thenReturn(mockProfile)
 
         setUpMocks()
 
@@ -114,9 +108,8 @@ class ReaderDaoImplTest {
     }
 
     companion object {
-        private val PROFILE_NAME = "FOO"
-        private val MOCK_ROW_COUNT = 2048
-        private val MOCK_LAST_VALUE = "987654"
+        private const val PROFILE_NAME = "FOO"
+        private const val MOCK_ROW_COUNT = 2048
+        private const val MOCK_LAST_VALUE = "987654"
     }
-
 }

@@ -10,7 +10,7 @@ import java.net.URL
  */
 open class ProfileLoader {
 
-    fun loadProfile(filter: FilterContainer, toUrl : (String) -> URL?): ReadProfile? {
+    open fun loadProfile(filter: FilterContainer, toUrl : (String) -> URL?): ReadProfile? {
         val profileName = filter.profile
         return if (!profileName.isNullOrBlank()) {
             loadProfile(profileName, toUrl)

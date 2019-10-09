@@ -46,7 +46,7 @@ class ReaderDaoImpl : ReaderDao {
 
         var result = ReaderResultSet()
         try {
-            val profile = profileLoader.loadProfile(filter) { profileUrlResolver.toUrl(it) }
+            val profile = profileLoader.loadProfile(filter, profileUrlResolver::toUrl)
                     ?: throw Exception("Profile not found")
             sql = SqlBuilder.buildSql(filter, profile)
             sqlCount = SqlBuilder.buildCountSql(filter, profile)
@@ -88,7 +88,7 @@ class ReaderDaoImpl : ReaderDao {
     override fun getColumns(filter: FilterContainer): ReaderResultSet {
         val result = ReaderResultSet()
         try {
-            val profile = profileLoader.loadProfile(filter) { profileUrlResolver.toUrl(it) }
+            val profile = profileLoader.loadProfile(filter, profileUrlResolver::toUrl)
                     ?: throw Exception("Profile not found")
             result.columns = profile.columns
         } catch (ex: Exception) {
@@ -114,7 +114,7 @@ class ReaderDaoImpl : ReaderDao {
         try {
             genericDataSource.connection.use { connection ->
                 connection.createStatement().use { stm ->
-                    profile = profileLoader.loadProfile(filter) { profileUrlResolver.toUrl(it) }
+                    profile = profileLoader.loadProfile(filter, profileUrlResolver::toUrl)
                     result.sql = sql
                     stm.fetchSize = FETCH_SIZE
                     list = _executeSqlQuery(stm, sql, profile, isLast)
