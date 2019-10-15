@@ -19,39 +19,33 @@ data class ReaderResultSet @JvmOverloads constructor(
         /**
          * Total number of rows matching the filter (ignoring pagination).
          */
-        var totalRows: Int = 0
+        var totalRows: Int = 0,
+        /**
+         * `true` if an error occurred.
+         */
+        var isError: Boolean = false,
+        /**
+         * The error message, if any.
+         */
+        var errorMessage: String? = null,
+        /**
+         * The applied filter
+         */
+        var filter: FilterContainer? = null,
+        /**
+         * The [Column]s in the read profile.
+         */
+        var columns: List<Column>? = null,
+        /**
+         * If [QueryStringFilter.last] is not blank,
+         * this is the MAX value of that field with currently applied filters.
+         */
+        var last: String? = null
 ) {
-
-    /**
-     * `true` if an error occurred.
-     */
-    var isError: Boolean = false
-
-    /**
-     * The error message, if any.
-     */
-    var errorMessage: String? = null
-
-    /**
-     * The applied filter
-     */
-    var filter: FilterContainer? = null
-
-    /**
-     * The [Column]s in the read profile.
-     */
-    var columns: List<Column>? = null
-
     /**
      * The generated SQL.
      */
     var sql: String? = null
-
-    /**
-     * If [QueryStringFilter.last] is not blank,
-     * this is the MAX value of that field with currently applied filters.
-     */
-    var last: String? = null
 
     private var starttime: Long = 0
 

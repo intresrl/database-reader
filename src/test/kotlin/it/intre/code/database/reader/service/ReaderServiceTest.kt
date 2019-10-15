@@ -13,18 +13,12 @@ class ReaderServiceTest {
 
     private val readerDao = mock(ReaderDao::class.java)
 
-    private val error = ReaderResultSet().apply {
-        isError = true
-        errorMessage = "D'OH!"
-    }
+    private val error = ReaderResultSet(errorMessage = "D'OH!", isError = true)
 
-    private val success = ReaderResultSet().apply {
-        columns = listOf(Column("One"), Column("Two"))
-        list = listOf(
-                mapOf("A" to "Alpha", "B" to "Beta"),
-                mapOf("A" to "Aleph", "B" to "Beth")
-        )
-    }
+    private val success = ReaderResultSet(
+            columns = listOf(Column("One"), Column("Two")),
+            list = listOf(mapOf("A" to "Alpha", "B" to "Beta"), mapOf("A" to "Aleph", "B" to "Beth"))
+    )
 
     private val filter = FilterContainer()
 
