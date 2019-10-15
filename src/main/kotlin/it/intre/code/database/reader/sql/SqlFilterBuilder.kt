@@ -13,6 +13,7 @@ import java.util.Collections.emptyList
  * To manage a new filter type: extend this class,
  * implement abstract methods and add new implementation to factory method.
  */
+//FIXME implement equals and hashCode using fields: name
 abstract class SqlFilterBuilder(val name: String) {
 
     internal abstract val filter: GenericFilter

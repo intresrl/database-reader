@@ -9,6 +9,7 @@ import java.lang.String.format
 /**
  * SQL builder for filters of type text, matching on "=" or "LIKE"
  */
+//FIXME implement equals and hashCode using fields: filter, name
 internal class TextFilterBuilder(override val filter: TextFilter, name: String) : SqlFilterBuilder(name) {
 
     override val orConditions: List<String>

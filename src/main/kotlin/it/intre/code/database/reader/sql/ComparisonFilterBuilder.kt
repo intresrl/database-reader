@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils
 import org.apache.commons.lang3.StringUtils.isBlank
 import org.apache.commons.lang3.StringUtils.wrap
 
+//FIXME implement equals and hashCode using fields: filter, asString, name
 class ComparisonFilterBuilder internal constructor(override val filter: ComparisonFilter, name: String) : SqlFilterBuilder(name) {
     private val asString: Boolean
 
