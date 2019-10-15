@@ -9,6 +9,7 @@ import it.intre.code.database.reader.filter.generic.TextFilter
 import it.intre.code.database.reader.resultset.ReaderResultSet
 import it.intre.code.database.reader.sql.SqlHelperTest.Companion.createQueryProfile
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.any
@@ -105,6 +106,23 @@ class ReaderDaoImplTest {
         expected.last = MOCK_LAST_VALUE
 
         assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `error when profile is not loaded correctly`() {
+        val filterContainer = FilterContainer()
+        filterContainer.profile = "CASSOBUFFO"
+        filterContainer.customFilters = listOf()
+        filterContainer.queryStringFilter = QueryStringFilter()
+
+        setUpMocks()
+        sut.setProfileLoader(object : ProfileLoader() {
+            override fun loadProfile(filter: FilterContainer, toUrl: (String) -> URL?) = null
+        })
+
+        val actual = sut.getColumns(filterContainer)
+
+        assertTrue(actual.isError)
     }
 
     companion object {
