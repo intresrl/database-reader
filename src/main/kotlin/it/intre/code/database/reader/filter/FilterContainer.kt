@@ -65,4 +65,24 @@ class FilterContainer {
         return page != null && page > -1
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is FilterContainer) return false
+
+        if (profile != other.profile) return false
+        if (customFilters != other.customFilters) return false
+        if (queryStringFilter != other.queryStringFilter) return false
+        if (paramValues != other.paramValues) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = profile?.hashCode() ?: 0
+        result = 31 * result + customFilters.hashCode()
+        result = 31 * result + queryStringFilter.hashCode()
+        result = 31 * result + paramValues.hashCode()
+        return result
+    }
+
 }
