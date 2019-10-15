@@ -228,6 +228,7 @@
                         <configuration>
                             <sourceDirs>
                                 <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                                <sourceDir>${project.basedir}/src/main/java</sourceDir>
                             </sourceDirs>
                         </configuration>
                     </execution>
@@ -239,6 +240,7 @@
                         <configuration>
                             <sourceDirs>
                                 <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                                <sourceDir>${project.basedir}/src/test/java</sourceDir>
                             </sourceDirs>
                         </configuration>
                     </execution>
@@ -292,9 +294,6 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.7.1</version>
             </plugin>
-
-
-
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
@@ -309,7 +308,6 @@
                         </goals>
                     </execution>
                 </executions>-->
-
                 <!-- https://github.com/hcoles/pitest/issues/284 -->
                 <!-- Need this to support JUnit 5 -->
                 <dependencies>
@@ -385,6 +383,7 @@
                                 <configuration>
                                     <sourceDirectories>
                                         <dir>src/main/kotlin</dir>
+                                        <dir>src/main/java</dir>
                                     </sourceDirectories>
                                 </configuration>
                             </execution>
@@ -407,7 +406,6 @@
                         </executions>
                     </plugin>
                 </plugins>
-
             </build>
         </profile>
     </profiles>
