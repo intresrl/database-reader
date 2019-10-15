@@ -199,7 +199,7 @@ class SqlBuilderTest {
         val filterContainer = FilterContainer()
 
         val queryProfile = createQueryProfile()
-        val cf = ComparisonFilterTest("X")
+        val cf = ComparisonFilter("X")
         cf.gt = ("666")
         filterContainer.customFilters = (listOf<ComparisonFilter>(cf))
         filterContainer.queryStringFilter.reportFields = (listOf("the_name3", "the_name2"))
@@ -257,8 +257,6 @@ class SqlBuilderTest {
         filterContainer.queryStringFilter = (qsf)
         return filterContainer
     }
-
-    private class ComparisonFilterTest internal constructor(name: String) : ComparisonFilter(name, false, false, null, null, null, null, null)
 
     companion object {
 
