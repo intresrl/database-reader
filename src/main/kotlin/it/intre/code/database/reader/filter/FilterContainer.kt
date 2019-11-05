@@ -49,6 +49,13 @@ class FilterContainer {
     val size: Int?
         get() = queryStringFilter.size
 
+    fun getPaginatedSize() =
+            when {
+                !isPaginationSqlSet -> -1
+                isValidPage(pageTo) && isValidPage(pageFrom) -> size!! * (pageTo!! - pageFrom!! + 1)
+                else -> size!!
+            }
+
     fun parseFrom(params: MultivaluedMap<String, String>?) {
         if (params == null)
             return
@@ -83,6 +90,10 @@ class FilterContainer {
         result = 31 * result + queryStringFilter.hashCode()
         result = 31 * result + paramValues.hashCode()
         return result
+    }
+
+    override fun toString(): String {
+        return "FilterContainer(profile=$profile, customFilters=$customFilters, queryStringFilter=$queryStringFilter, paramValues=$paramValues)"
     }
 
 }
