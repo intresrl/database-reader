@@ -22,13 +22,13 @@ internal class SqlHelper private constructor() {
 
     internal class Range(val from: Int, val to: Int) {
 
-        override fun equals(o: Any?): Boolean {
-            if (o === this) return true
-            if (o !is Range) return false
-            val other = o as Range?
-            if (!other!!.canEqual(this as Any)) return false
-            if (this.from != other.from) return false
-            return if (this.to != other.to) false else true
+        override fun equals(other: Any?): Boolean {
+            if (other === this) return true
+            if (other !is Range) return false
+            val range = other as Range?
+            if (!range!!.canEqual(this as Any)) return false
+            if (this.from != range.from) return false
+            return if (this.to != range.to) false else true
         }
 
         override fun hashCode(): Int {

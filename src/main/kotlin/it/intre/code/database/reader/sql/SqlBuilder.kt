@@ -43,38 +43,40 @@ class SqlBuilder {
     }
 
     private fun _addCustomOrder(sql: String, queryProfile: QueryProfile): String {
-        var sql = sql
+        var sqlString = sql
         if (queryProfile.isOrder) {
-            if (!sql.toLowerCase().contains("order by")) {
-                sql += " ORDER BY "
-            } else {
-                sql += ", "
-            }
-            sql += queryProfile.order
+            sqlString +=
+                    if (!sqlString.toLowerCase().contains("order by")) {
+                        " ORDER BY "
+                    } else {
+                        ", "
+                    }
+            sqlString += queryProfile.order
         }
-        return sql
+        return sqlString
     }
 
     private fun _addCustomHaving(sql: String, queryProfile: QueryProfile): String {
-        var sql = sql
+        var sqlString = sql
         if (queryProfile.isHaving) {
-            sql += " HAVING " + queryProfile.having
+            sqlString += " HAVING " + queryProfile.having
         }
-        return sql
+        return sqlString
     }
 
     private fun _addCustomGroupBy(sql: String, groupBy: String, queryProfile: QueryProfile): String {
-        var sql = sql
-        sql += groupBy
+        var sqlString = sql
+        sqlString += groupBy
         if (queryProfile.isGroup) {
-            if (groupBy.isEmpty()) {
-                sql += " GROUP BY "
-            } else {
-                sql += ","
-            }
-            sql += queryProfile.group
+            sqlString +=
+                    if (groupBy.isEmpty()) {
+                        " GROUP BY "
+                    } else {
+                        ","
+                    }
+            sqlString += queryProfile.group
         }
-        return sql
+        return sqlString
     }
 
     private fun _addCustomWhere(sql: String, queryProfile: QueryProfile): String {
@@ -89,12 +91,12 @@ class SqlBuilder {
     }
 
     private fun _addMaxRecords(sql: String, queryProfile: QueryProfile): String {
-        var sql = sql
+        var sqlString = sql
         if (queryProfile.isMaxRecords) {
             //FIXME: depends on the driver - this implementation is valid for oracle 12c
-            sql += " OFFSET 0 ROWS FETCH NEXT ${queryProfile.maxRecords} ROWS ONLY"
+            sqlString += " OFFSET 0 ROWS FETCH NEXT ${queryProfile.maxRecords} ROWS ONLY"
         }
-        return sql
+        return sqlString
     }
 
     internal fun setIsCount(isCount: Boolean?) {
